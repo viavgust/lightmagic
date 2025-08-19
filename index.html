@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Light & Magic Studio</title>
+    <style>
+        :root {
+            --primary-color: #FAEBD7; /* Cream */
+            --secondary-color: #FFDAB9; /* Peach */
+            --background-light: #FFFCF7; /* Lighter Cream for white sections */
+            --text-color: #5D4037;
+            --accent-color: #E57373;
+            --white-color: #FFFFFF;
+            --shadow-color: rgba(93, 64, 55, 0.1);
+            --scroll-behavior: smooth;
+        }
+
+        html {
+            scroll-behavior: var(--scroll-behavior);
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            background-color: var(--white-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+        
+        h1, h2, h3 {
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-color);
+            margin: 15px auto 0;
+        }
+        
+        /* --- Navigation --- */
+        .header {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px var(--shadow-color);
+            transition: top 0.3s;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-item {
+            margin-left: 30px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: var(--accent-color);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--white-color);
+            overflow: hidden;
+        }
+
+        .parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center center;
+            z-index: -1;
+        }
+
+        #parallax-layer-1 {
+            background-image: url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1364&q=80');
+        }
+
+        #parallax-layer-2 {
+            background-image: url('https://www.transparenttextures.com/patterns/light-paper-fibers.png');
+            opacity: 0.3;
+        }
+        
+        .hero-content {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 40px 60px;
+            border-radius: 10px;
+        }
+
+        .hero-title {
+            font-size: 4em;
+            margin: 0 0 20px;
+            font-weight: 200;
+        }
+
+        .btn {
+            background-color: var(--accent-color);
+            color: var(--white-color);
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .btn:hover {
+            background-color: #d32f2f;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* --- About Section --- */
+        #about {
+            background-color: var(--primary-color);
+        }
+        
+        .about-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1em;
+        }
+
+        /* --- Services Section --- */
+        #services {
+             background-image: url('https://www.transparenttextures.com/patterns/camera.png');
+             background-color: var(--background-light);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+        
+        .service-card {
+            background: var(--white-color);
+            padding: 40px 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px var(--shadow-color);
+        }
+        
+        .service-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+
+        /* --- Portfolio Section --- */
+        #portfolio {
+            background-color: var(--secondary-color);
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            height: 250px;
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center center;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+        
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            color: var(--white-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            text-align: center;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-overlay h4 {
+            font-size: 1.4em;
+            margin: 0;
+            transform: translateY(20px);
+            transition: transform 0.4s ease;
+        }
+
+        .portfolio-item:hover .portfolio-overlay h4 {
+            transform: translateY(0);
+        }
+
+        /* --- New Pricing Section --- */
+        #pricing {
+            background-color: var(--background-light);
+        }
+
+        .pricing-category {
+            margin-bottom: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            background: var(--white-color);
+        }
+
+        .pricing-category-title {
+            padding: 25px 30px;
+            margin: 0;
+            font-size: 1.8em;
+            cursor: pointer;
+            position: relative;
+            transition: background-color 0.3s ease;
+        }
+        
+        .pricing-category-title:hover {
+            background-color: var(--primary-color);
+        }
+
+        .pricing-category-title::after {
+            content: '▼';
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%) rotate(0deg);
+            transition: transform 0.4s ease;
+            font-size: 0.8em;
+            color: var(--accent-color);
+        }
+        
+        .pricing-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.7s ease-in-out;
+            padding: 0 20px;
+        }
+        
+        .pricing-category.active .pricing-details {
+            max-height: 1000px; /* Large enough to show content */
+            padding: 40px 20px;
+        }
+
+        .pricing-category.active .pricing-category-title::after {
+            transform: translateY(-50%) rotate(180deg);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            align-items: stretch;
+        }
+
+        .pricing-card {
+            background: var(--background-light);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 5px solid transparent;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--primary-color);
+        }
+        
+        .pricing-card.popular {
+            border-top-color: var(--accent-color);
+            border: 1px solid var(--secondary-color);
+        }
+
+        .pricing-card h3 {
+            font-size: 1.6em;
+            margin-bottom: 10px;
+        }
+        
+        .price {
+            font-size: 2.2em;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin: 15px 0;
+        }
+        
+        .price span {
+            font-size: 0.5em;
+            font-weight: normal;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            padding: 0;
+            margin: 25px 0;
+            flex-grow: 1;
+        }
+        
+        .pricing-features li {
+            margin-bottom: 12px;
+        }
+        
+        /* --- Contact Section --- */
+        #contact {
+            background-color: var(--primary-color);
+        }
+
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .contact-info p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+        
+        .contact-form .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1em;
+            box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 5px rgba(229, 115, 115, 0.5);
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        /* --- Mobile Responsiveness --- */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            transition: all 0.3s ease-in-out;
+            background-color: var(--text-color);
+        }
+
+        @media(max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: var(--white-color);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-item {
+                margin: 16px 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+            
+            .hero-title {
+                font-size: 2.5em;
+            }
+
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+            h2 {
+                font-size: 2em;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container navbar">
+            <a href="#home" class="nav-logo">Light & Magic</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#about" class="nav-link">О нас</a></li>
+                <li class="nav-item"><a href="#services" class="nav-link">Услуги</a></li>
+                <li class="nav-item"><a href="#portfolio" class="nav-link">Портфолио</a></li>
+                <li class="nav-item"><a href="#pricing" class="nav-link">Тарифы</a></li>
+                <li class="nav-item"><a href="#contact" class="nav-link">Контакты</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="parallax-bg" id="parallax-layer-1"></div>
+        <div class="parallax-bg" id="parallax-layer-2"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Ловим моменты, создаём магию</h1>
+            <a href="#contact" class="btn">Записаться на съёмку</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h2>О нас</h2>
+            <div class="about-content">
+                <p>«Light & Magic Studio» — это не просто фотостудия. Это творческое пространство, где рождаются истории, запечатлённые в кадрах. Мы верим, что каждая фотография — это частичка волшебства, и наша задача — помочь вам его увидеть и сохранить. Наша команда профессионалов с любовью подходит к каждой съёмке, создавая комфортную и вдохновляющую атмосферу.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="container">
+            <h2>Наши Услуги</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Портретная съёмка</h3>
+                    <p>Индивидуальные, семейные и детские портреты, которые раскроют вашу уникальность и передадут искренние эмоции.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Предметная съёмка</h3>
+                    <p>Аппетитные фотографии ваших блюд, десертов и товаров для меню, рекламы и социальных сетей.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Репортажная съёмка</h3>
+                    <p>Запечатлим самые яркие моменты ваших свадеб, праздников и мероприятий, сохранив атмосферу события.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Креативная съёмка</h3>
+                    <p>Воплотим в жизнь самые смелые идеи, создавая уникальные и концептуальные фотопроекты.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="portfolio">
+        <div class="container">
+            <h2>Портфолио</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                   <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=1200&auto=format&fit=crop" alt="Портрет девушки">
+                    <div class="portfolio-overlay"><h4>Портрет / Девушка</h4></div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="https://images.unsplash.com/photo-1454496522488-7a8e488e8606?q=80&w=1200&auto=format&fit=crop" alt="Горный пейзаж">
+                    <div class="portfolio-overlay"><h4>Природа / Пейзаж</h4></div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="https://images.unsplash.com/photo-1531747056595-07f6cbbe10ad?q=80&w=1887&auto=format&fit=crop" alt="Фото пары">
+                    <div class="portfolio-overlay"><h4>Портрет / Love Story</h4></div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1981&auto=format&fit=crop" alt="Фото десерта">
+                    <div class="portfolio-overlay"><h4>Еда / Десерты</h4></div>
+                </div>
+                 <div class="portfolio-item">
+                    <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=2070&auto=format&fit=crop" alt="Свадебное фото">
+                    <div class="portfolio-overlay"><h4>Репортаж / Свадьба</h4></div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=1974&auto=format&fit=crop" alt="Фото с праздника">
+                    <div class="portfolio-overlay"><h4>Репортаж / Праздники</h4></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing">
+        <div class="container">
+            <h2>Тарифы</h2>
+
+            <div class="pricing-category">
+                <h3 class="pricing-category-title">Портретная и студийная съёмка</h3>
+                <div class="pricing-details">
+                    <div class="pricing-grid">
+                         <div class="pricing-card">
+                            <h3>Старт</h3>
+                            <div class="price">$150</div>
+                            <ul class="pricing-features">
+                                <li>1 час съёмки в студии</li>
+                                <li>1-2 образа</li>
+                                <li>10 фото в ретуши</li>
+                                <li>Все удачные кадры в цветокоррекции</li>
+                            </ul>
+                            <a href="#contact" class="btn">Выбрать</a>
+                        </div>
+                        <div class="pricing-card popular">
+                             <h3>Оптимум</h3>
+                            <div class="price">$250</div>
+                            <ul class="pricing-features">
+                                <li>2 часа съёмки</li>
+                                <li>2-3 образа</li>
+                                <li>20 фото в ретуши</li>
+                                <li>Все удачные кадры в цветокоррекции</li>
+                                <li>Помощь в подборе образа</li>
+                            </ul>
+                            <a href="#contact" class="btn">Выбрать</a>
+                        </div>
+                        <div class="pricing-card">
+                            <h3>Премиум</h3>
+                            <div class="price">$400</div>
+                            <ul class="pricing-features">
+                                <li>3-4 часа съёмки</li>
+                                <li>До 5 образов</li>
+                                <li>35 фото в ретуши + фотокнига</li>
+                                <li>Все удачные кадры в цветокоррекции</li>
+                                <li>Услуги визажиста</li>
+                            </ul>
+                            <a href="#contact" class="btn">Выбрать</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pricing-category">
+                <h3 class="pricing-category-title">Предметная съёмка (Food & Product)</h3>
+                <div class="pricing-details">
+                    <div class="pricing-grid">
+                        <div class="pricing-card">
+                            <h3>Базовый</h3>
+                            <div class="price">$80<span>/час</span></div>
+                            <ul class="pricing-features">
+                                <li>Съёмка на однотонном фоне</li>
+                                <li>До 10 предметов</li>
+                                <li>15 финальных фото</li>
+                                <li>Простая ретушь</li>
+                            </ul>
+                            <a href="#contact" class="btn">Выбрать</a>
+                        </div>
+                        <div class="pricing-card">
+                            <h3>Рекламный</h3>
+                            <div class="price">$300<span>/проект</span></div>
+                            <ul class="pricing-features">
+                                <li>Разработка концепции</li>
+                                <li>Сложные композиции</li>
+                                <li>20-25 финальных фото</li>
+                                <li>Профессиональная ретушь</li>
+                            </ul>
+                            <a href="#contact" class="btn">Выбрать</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pricing-category">
+                <h3 class="pricing-category-title">Репортажная и креативная съёмка</h3>
+                <div class="pricing-details">
+                    <div class="pricing-grid">
+                        <div class="pricing-card">
+                            <h3>Репортаж</h3>
+                            <div class="price">$100<span>/час</span></div>
+                            <ul class="pricing-features">
+                                <li>Съёмка мероприятий (от 2 часов)</li>
+                                <li>50-70 фото за каждый час</li>
+                                <li>Цветокоррекция всех фото</li>
+                                <li>Готовность фото — до 7 дней</li>
+                            </ul>
+                            <a href="#contact" class="btn">Выбрать</a>
+                        </div>
+                        <div class="pricing-card">
+                            <h3>Креатив</h3>
+                            <div class="price"><span>От</span> $500</div>
+                            <ul class="pricing-features">
+                                <li>Уникальная концепция под вас</li>
+                                <li>Подбор локации и реквизита</li>
+                                <li>20+ фото в авторской обработке</li>
+                                <li>Цена рассчитывается индивидуально</li>
+                            </ul>
+                            <a href="#contact" class="btn">Выбрать</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2>Контакты</h2>
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <h3>Свяжитесь с нами</h3>
+                    <p><strong>Адрес:</strong><br>123 Magic Lens Avenue, Suite 303<br>New York, NY 10001</p>
+                    <p><strong>Часы работы:</strong><br>Ежедневно, с 10:00 до 21:00</p>
+                    <p><strong>Телефон:</strong><br>+1 (212) 555-1234</p>
+                    <p><strong>Email:</strong><br>hello@lightmagic.studio</p>
+                </div>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Ваше имя" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Ваш Email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" placeholder="Ваше сообщение" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Отправить</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Parallax Effect
+        window.addEventListener('scroll', function() {
+            const parallaxLayer1 = document.getElementById('parallax-layer-1');
+            const parallaxLayer2 = document.getElementById('parallax-layer-2');
+            let offset = window.pageYOffset;
+            parallaxLayer1.style.transform = 'translateY(' + offset * 0.5 + 'px)';
+            parallaxLayer2.style.transform = 'translateY(' + offset * 0.2 + 'px)';
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                let targetId = this.getAttribute('href');
+                let targetElement = document.querySelector(targetId);
+
+                if (targetElement) {
+                     targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Mobile Menu
+        const hamburger = document.querySelector(".hamburger");
+        const navMenu = document.querySelector(".nav-menu");
+        const navLinks = document.querySelectorAll(".nav-link");
+
+        function closeMenu() {
+            hamburger.classList.remove("active");
+            navMenu.classList.remove("active");
+        }
+
+        hamburger.addEventListener("click", () => {
+            hamburger.classList.toggle("active");
+            navMenu.classList.toggle("active");
+        });
+
+        navLinks.forEach(n => n.addEventListener("click", closeMenu));
+
+        // Pricing Accordion
+        document.querySelectorAll('.pricing-category-title').forEach(title => {
+            title.addEventListener('click', () => {
+                const currentCategory = title.parentElement;
+                const wasActive = currentCategory.classList.contains('active');
+
+                document.querySelectorAll('.pricing-category').forEach(cat => {
+                    cat.classList.remove('active');
+                });
+
+                if (!wasActive) {
+                    currentCategory.classList.add('active');
+                }
+            });
+        });
+
+    </script>
+
+</body>
+</html>

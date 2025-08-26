@@ -3,9 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Light & Magic Studio — профессиональная фотостудия в Нью-Йорке. Портретная, предметная, репортажная и креативная съемка. Запечатлеем ваши моменты с магией.">
-    <meta name="keywords" content="фотостудия, Light & Magic Studio, портретная съемка, предметная съемка, репортажная съемка, креативная съемка, фотограф Нью-Йорк, фотосессия, студийная съемка, свадебный фотограф">
     <title>Light & Magic Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Light & Magic Studio",
+      "image": "https://example.com/logo.png",
+      "url": "https://example.com",
+      "telephone": "+12125551234",
+      "email": "hello@lightmagic.studio",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "123 Magic Lens Avenue, Suite 303",
+        "addressLocality": "New York",
+        "addressRegion": "NY",
+        "postalCode": "10001",
+        "addressCountry": "US"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ],
+        "opens": "10:00",
+        "closes": "21:00"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Наши Услуги",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Портретная съёмка"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Предметная съёмка"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Репортажная съёмка"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Креативная съёмка"
+            }
+          }
+        ]
+      }
+    }
+    </script>
     <style>
         :root {
             --primary-color: #FAEBD7; /* Cream */
@@ -23,11 +90,15 @@
         }
 
         body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Open Sans', sans-serif;
             margin: 0;
             background-color: var(--white-color);
             color: var(--text-color);
             line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
         }
 
         .container {
@@ -562,18 +633,22 @@
             <h2>Наши Услуги</h2>
             <div class="services-grid">
                 <div class="service-card">
+                    <i class="fas fa-camera-retro fa-3x" style="color: var(--accent-color); margin-bottom: 20px;"></i>
                     <h3>Портретная съёмка</h3>
                     <p>Индивидуальные, семейные и детские портреты, которые раскроют вашу уникальность и передадут искренние эмоции.</p>
                 </div>
                 <div class="service-card">
+                    <i class="fas fa-utensils fa-3x" style="color: var(--accent-color); margin-bottom: 20px;"></i>
                     <h3>Предметная съёмка</h3>
                     <p>Аппетитные фотографии ваших блюд, десертов и товаров для меню, рекламы и социальных сетей.</p>
                 </div>
                 <div class="service-card">
+                    <i class="fas fa-calendar-alt fa-3x" style="color: var(--accent-color); margin-bottom: 20px;"></i>
                     <h3>Репортажная съёмка</h3>
                     <p>Запечатлим самые яркие моменты ваших свадеб, праздников и мероприятий, сохранив атмосферу события.</p>
                 </div>
                 <div class="service-card">
+                    <i class="fas fa-lightbulb fa-3x" style="color: var(--accent-color); margin-bottom: 20px;"></i>
                     <h3>Креативная съёмка</h3>
                     <p>Воплотим в жизнь самые смелые идеи, создавая уникальные и концептуальные фотопроекты.</p>
                 </div>
@@ -734,17 +809,18 @@
                     <p><strong>Телефон:</strong><br>+1 (212) 555-1234</p>
                     <p><strong>Email:</strong><br>hello@lightmagic.studio</p>
                 </div>
-                <form class="contact-form">
+                <form class="contact-form" id="contactForm">
                     <div class="form-group">
-                        <input type="text" name="name" placeholder="Ваше имя" required>
+                        <input type="text" id="contactName" name="name" placeholder="Ваше имя" required>
                     </div>
                     <div class="form-group">
-                        <input type="email" name="email" placeholder="Ваш Email" required>
+                        <input type="email" id="contactEmail" name="email" placeholder="Ваш Email" required>
                     </div>
                     <div class="form-group">
-                        <textarea name="message" placeholder="Ваше сообщение" required></textarea>
+                        <textarea id="contactMessage" name="message" placeholder="Ваше сообщение" required></textarea>
                     </div>
                     <button type="submit" class="btn">Отправить</button>
+                    <p id="formMessage" style="display: none; margin-top: 20px; text-align: center; color: var(--accent-color); font-weight: bold;">Сообщение отправлено!</p>
                 </form>
             </div>
         </div>
@@ -807,6 +883,30 @@
                     currentCategory.classList.add('active');
                 }
             });
+        });
+
+        // Contact Form Submission (Mailto)
+        const contactForm = document.getElementById('contactForm');
+        const formMessage = document.getElementById('formMessage');
+
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const message = document.getElementById('contactMessage').value;
+
+            const subject = encodeURIComponent('Сообщение с сайта Light & Magic Studio от ' + name);
+            const body = encodeURIComponent('Имя: ' + name + '\nEmail: ' + email + '\n\nСообщение:\n' + message);
+
+            window.location.href = 'mailto:viavgust@gmail.com?subject=' + subject + '&body=' + body;
+
+            formMessage.style.display = 'block';
+            setTimeout(() => {
+                formMessage.style.display = 'none';
+            }, 5000); // Hide message after 5 seconds
+
+            contactForm.reset(); // Clear the form
         });
 
     </script>
